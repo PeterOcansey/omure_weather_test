@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Location;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->command->info("Seeding database with default locations");
+
+        $locations = array("New York", "London", "Paris", "Berlin", "Tokyo");
+
+        foreach($locations as $location) {
+            $new_location = Location::FirstOrCreate(["name" => $location]);
+        }
     }
 }
