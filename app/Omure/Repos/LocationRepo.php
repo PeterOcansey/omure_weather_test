@@ -11,6 +11,14 @@ class LocationRepo
     {
         return Location::get();
     }
+
+    public function getPendingLocations()
+    {
+        return Location::where(function($query){
+            return $query->whereNull('lat')
+                    ->orWhereNull('lon');
+        })->get();
+    }
     
     public function update(Array $data, $id)
     {
