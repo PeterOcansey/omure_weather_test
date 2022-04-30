@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 class HttpService
 {
     
-    public static function fetchOpenWeatherDataData(float $lat, float $lon)
+    public static function fetchOpenWeatherData(float $lat, float $lon)
     {
         $response = Http::acceptJson()->get(env("OPEN_WEATHER_API", ""), [
             'lat' => $lat,
