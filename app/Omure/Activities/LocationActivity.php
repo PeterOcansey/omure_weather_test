@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Log;
 
 class LocationActivity 
 {
-    private $locationRepo;
+    protected $locationRepo;
 
     public function __construct(LocationRepo $locationRepo)
     {
-        $locationRepo = $this->locationRepo;
+        $this->locationRepo = $locationRepo;
     }
 
     public function processPendingLocations()
@@ -20,9 +20,15 @@ class LocationActivity
         $locations = $this->locationRepo->getPendingLocations();
 
         foreach($locations as $location){
+            
             $response = HttpService::fetchOpenWeatherGeoData($location->name);
+            
+            //Update Location
+            $data["lat"] = $response[0]->lat;
+            $data["lon"] = $response[0]->lon;
+            $this->locationRepo->update($data, $location->id);
 
-            Log::info($response);
+            Log::info($response[0]->lat);
         }
 
     }

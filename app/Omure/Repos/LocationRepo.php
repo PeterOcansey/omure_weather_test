@@ -29,7 +29,7 @@ class LocationRepo
             $location->lat = $data['lat'];
             $location->lon = $data['lon'];
 
-            return $location->updaate() ? $location : null;
+            return $location->update() ? $location : null;
         }
 
         return null;
