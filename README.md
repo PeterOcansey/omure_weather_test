@@ -11,9 +11,9 @@ The Omure weather forcast service is a Laravel application develop around the Op
 ## Installation & Setup
 - Clone the repository 
 - Create a copy of .env.example as .env in the root directory
-- Update the .env with your `DATABASE DETAILS`
+- Update the .env with your ``DATABASE DETAILS``
 - Update the .env by setting `QUEUE_CONNECTION` to `databaase`. We are using database for our queued jobs
-- Update the .env by setting `OPEN_WEATHER_API_URL` to `**[OPEN_WEATHER_API_URL](https://api.openweathermap.org/data/2.5/group)**`
+- Update the .env by setting `OPEN_WEATHER_API_URL` to **[OPEN_WEATHER_API_URL](https://api.openweathermap.org/data/2.5/group)**
 - Update the .env by setting `OPEN_WEATHER_API_KEY` to your Open Weather Account's API Key
 - Run `composer install` to install the dependencies
 - Run `php artisan key:generate` to generate the Laravel App Key
