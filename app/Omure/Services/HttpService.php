@@ -18,17 +18,20 @@ class HttpService
         return json_decode($response->getBody()->getContents());
     }
 
-    public static function fetchHistoricOpenWeatherData(float $lat, float $lon, int $timestamp)
+    public static function fetchHistoricOpenWeatherData(String $locations, int $timestamp)
     {
         $response = Http::acceptJson()->get(env("OPEN_WEATHER_API_URL", ""), [
-            'lat' => $lat,
-            'lon' => $lon,
+            'id' => $locations,
             'start' => $timestamp,
             'end' => $timestamp,
             'appId' => env("OPEN_WEATHER_API_KEY", "")
         ]);
 
-        return json_decode($response->getBody()->getContents());
+        if($response->successful()){
+            return json_decode($response->getBody()->getContents());
+        }
+
+        return null;
     }
 
 

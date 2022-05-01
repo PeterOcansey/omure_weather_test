@@ -12,6 +12,11 @@ class LocationRepo
         return Location::get();
     }
 
+    public function getLocationIds()
+    {
+        return Location::get("city_id");
+    }
+
     public function getPendingLocations()
     {
         return Location::where(function($query){
