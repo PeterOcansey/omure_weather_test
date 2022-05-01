@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->job(new FetchWeatherForcast())->cron("0 1,6,12,18 * * *");
+        //$schedule->job(new FetchWeatherForcast())->everyMinute(); //For testing purpose
     }
 
     /**
