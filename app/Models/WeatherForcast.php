@@ -10,7 +10,7 @@ class WeatherForcast extends Model
 {
     use HasFactory;
 
-    protected $hidden = ['updated_at'];
+    protected $hidden = ['updated_at','id'];
 
     protected $fillable = [
             'weather',

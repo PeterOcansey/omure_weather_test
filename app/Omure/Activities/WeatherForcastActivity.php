@@ -43,19 +43,16 @@ class WeatherForcastActivity
             //Fetch data from open weather map
             $response = HttpService::fetchHistoricOpenWeatherData($this->locationIds(), DateUtil::timestamp($filters['date']));
             if($response){
-                
-                $weather_forcasts = ApiResponseUtil::extract($response, $filters["date"]);
+                $forcasts = ApiResponseUtil::extract($response, $filters["date"]);
             
                 //Dispatch event
-                NewWeatherForcast::dispatch($weather_forcasts);
+                NewWeatherForcast::dispatch($forcasts);
 
-                return $this->apiResponse->success("Weather forcast retrieved successfully", ["data" => $weather_forcasts]);
+            }else{
+                return $this->apiResponse->notFoundError("Sorry, weather forcast for {$filters['date']} not available");
             }
-
-            return $this->apiResponse->notFoundError("Sorry, weather forcast for {$filters['date']} not available");
         }
-
-        return $forcasts;
+        return $this->apiResponse->success("Weather forcast retrieved successfully", ["data" => $forcasts]);
     }
 
     public function storeWeatherForcasts(Array $weather_forcasts){
