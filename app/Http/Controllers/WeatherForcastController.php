@@ -23,7 +23,6 @@ class WeatherForcastController extends Controller
     public function index(Request $request)
     {
         try{
-
             return $this->weatherForcastActivity->listWeatherForcasts($request->post());
 
         }catch(\Exception $e){
