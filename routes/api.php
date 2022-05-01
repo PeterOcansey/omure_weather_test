@@ -16,4 +16,4 @@ use App\Http\Controllers\WeatherForcastController;
 */
 
 
-Route::get('/weatherforcasts', [WeatherForcastController::class, 'index'])->name('weather.forcast');
+Route::get('/weatherforecasts', [WeatherForcastController::class, 'index'])->name('weather.forecast');
