@@ -3,56 +3,51 @@
 
 The Omure weather forcast service is a Laravel application develop around the Open Weather Forcast API service. The service fetches weather forcast data for New York, London, Paris, Tokyo and Berlin. The data is saved in a database for later retrieval. 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Project Requirement
+- Run Laravel 8, PHP 8.1+
+- MySQL or Postgres database
+- **[Create Open Weather API Account](https://openweathermap.org/)**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Installation & Setup
+- Clone the repository 
+- Create a copy of .env.example as .env in the root directory
+- Update the .env with your `DATABASE DETAILS`
+- Update the .env by setting `QUEUE_CONNECTION` to `databaase`. We are using database for our queued jobs
+- Update the .env by setting `OPEN_WEATHER_API_URL` to `**[OPEN_WEATHER_API_URL](https://api.openweathermap.org/data/2.5/group)**`
+- Update the .env by setting `OPEN_WEATHER_API_KEY` to your Open Weather Account's API Key
+- Run `composer install` to install the dependencies
+- Run `php artisan key:generate` to generate the Laravel App Key
+- Run `php artisan migreate` to create the database tables
+- Run `php artisan db:seed` to populate the locations table with the default cities.
+- Run `./vendor/bin/phpunit` to test the application, ensure all tests pass successfully.
+- Run `php artisan serve` to start the application : `Starting Laravel development server: http://127.0.0.1:8000`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Usage
+Using PostMan or any other API testing tool, make a call to the `base_url/api/weatherforcasts`, where `base_url` is your server ip eg. `http://127.0.0.1:8000`
+Sample Response:
+```
+    "code": "200",
+    "message": "Weather forcast retrieved successfully",
+    "data": [
+        {
+            "city_id": 5128581,
+            "city_name": "New York",
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "clear sky",
+                    "icon": "01d"
+                }
+            ],
+            "temp": 292.49,
+            "feels_like": 291.26,
+            "temp_min": 288.7,
+            "temp_max": 296.4,
+            "pressure": 1019,
+            "humidity": 30,
+            "created_at": "2022-04-01"
+        },
+```
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+A documentation can be found here.
