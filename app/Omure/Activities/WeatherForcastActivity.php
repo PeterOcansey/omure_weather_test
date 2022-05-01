@@ -61,9 +61,7 @@ class WeatherForcastActivity
     public function storeWeatherForcasts(Array $weather_forcasts){
         foreach($weather_forcasts as $weather_forcast){
             //Generate a new timestamp based on request date for saving
-            $date = new \DateTime($weather_forcast["date"]);
-            $timestamp = $date->getTimestamp();
-            $weather_forcast["timestamp"] = $timestamp;
+            $weather_forcast["timestamp"] = strtotime($weather_forcast['created_at']." 00:00"); 
 
             //Save new Weather Forcast
             $this->weatherForcastRepo->saveWeatherForcast($weather_forcast);
