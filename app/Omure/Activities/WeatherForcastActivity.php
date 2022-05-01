@@ -11,6 +11,7 @@ use App\Omure\Repos\LocationRepo;
 use App\Omure\Api\ApiResponse;
 use App\Omure\Utils\ApiResponseUtil;
 use App\Omure\Utils\Constants;
+use App\Events\NewWeatherForcast;
 
 class WeatherForcastActivity 
 {
@@ -42,7 +43,13 @@ class WeatherForcastActivity
             //Fetch data from open weather map
             $response = HttpService::fetchHistoricOpenWeatherData($this->locationIds(), DateUtil::timestamp($filters['date']));
             if($response){
-                return $this->apiResponse->success("Weather forcast retrieved successfully", ["data" => ApiResponseUtil::extract($response)]);
+                
+                $weather_forcasts = ApiResponseUtil::extract($response);
+
+                //Dispatch event
+                NewWeatherForcast::dispatch($weather_forcasts);
+
+                return $this->apiResponse->success("Weather forcast retrieved successfully", ["data" => $weather_forcasts]);
             }
 
             return $this->apiResponse->notFoundError("Sorry, weather forcast for {$filters['date']} not available");
