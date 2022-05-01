@@ -44,8 +44,8 @@ class WeatherForcastActivity
             $response = HttpService::fetchHistoricOpenWeatherData($this->locationIds(), DateUtil::timestamp($filters['date']));
             if($response){
                 
-                $weather_forcasts = ApiResponseUtil::extract($response);
-
+                $weather_forcasts = ApiResponseUtil::extract($response, $filters["date"]);
+            
                 //Dispatch event
                 NewWeatherForcast::dispatch($weather_forcasts);
 
@@ -56,6 +56,18 @@ class WeatherForcastActivity
         }
 
         return $forcasts;
+    }
+
+    public function storeWeatherForcasts(Array $weather_forcasts){
+        foreach($weather_forcasts as $weather_forcast){
+            //Generate a new timestamp based on request date for saving
+            $date = new \DateTime($weather_forcast["date"]);
+            $timestamp = $date->getTimestamp();
+            $weather_forcast["timestamp"] = $timestamp;
+
+            //Save new Weather Forcast
+            $this->weatherForcastRepo->saveWeatherForcast($weather_forcast);
+        }
     }
 
 }
