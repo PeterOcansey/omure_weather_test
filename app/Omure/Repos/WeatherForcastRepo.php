@@ -25,23 +25,30 @@ class WeatherForcastRepo
     
             $predicate->where($key, $filter);
         }
-        $predicate->whereDate("created_at", $filters["date"]);
-        return $predicate->get();
+        return $predicate->whereDate("created_at", $filters["date"])->get();
     }
 
     public function saveWeatherForcast(Array $weather_forcast){
+        $w_forcast = WeatherForcast::whereDate("created_at",date('Y-m-d',$weather_forcast["timestamp"]))->first();
 
-        return WeatherForcast::Create([
-                    "weather" => json_encode($weather_forcast["weather"]), 
-                    "temp" => $weather_forcast["temp"],
-                    "feels_like" => $weather_forcast["feels_like"],
-                    "temp_min" => $weather_forcast["temp_min"],
-                    "temp_max" => $weather_forcast["temp_max"],
-                    "humidity" => $weather_forcast["humidity"],
-                    "pressure" => $weather_forcast["pressure"],
-                    "city_id" => $weather_forcast["city_id"],
-                    "created_at" => $weather_forcast["timestamp"],
-        ]);
+        if(!$w_forcast){
+            $w_forcast = new WeatherForcast;
+            $w_forcast->created_at = $weather_forcast["timestamp"];
+        }
+
+        $w_forcast->weather = json_encode($weather_forcast["weather"]);
+        $w_forcast->temp = json_encode($weather_forcast["temp"]);
+        $w_forcast->feels_like = json_encode($weather_forcast["feels_like"]);
+        $w_forcast->temp_min = json_encode($weather_forcast["temp_min"]);
+        $w_forcast->temp_max = json_encode($weather_forcast["temp_max"]);
+        $w_forcast->humidity = json_encode($weather_forcast["humidity"]);
+        $w_forcast->pressure = json_encode($weather_forcast["pressure"]);
+        $w_forcast->city_id = json_encode($weather_forcast["city_id"]);
+
+        if($w_forcast->save())
+            return $w_forcast;
+        else
+            return null;
     }
 
 }

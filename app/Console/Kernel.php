@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Jobs\ProcessLocation;
+use App\Jobs\FetchWeatherForcast;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->job(new ProcessLocation())->everyMinute();
+        $schedule->job(new FetchWeatherForcast())->cron("0 1,6,12,18 * * *");
     }
 
     /**
