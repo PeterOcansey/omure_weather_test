@@ -13,8 +13,8 @@ class WeatherForcastTest extends TestCase
     public function a_weather_forcast_can_be_fetched()
     {
         $this->withoutExceptionHandling();
-        
-        $response = $this->get('/weatherforcasts');
+
+        $response = $this->get('/api/weatherforcasts');
 
         $response->assertStatus(200);
     }
