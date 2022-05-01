@@ -30,7 +30,8 @@ class WeatherForcastRepo
     }
 
     public function saveWeatherForcast(Array $weather_forcast){
-        $w_forcast = WeatherForcast::whereDate("created_at",date('Y-m-d',$weather_forcast["timestamp"]))->first();
+        $w_forcast = WeatherForcast::where("city_id", $weather_forcast["city_id"])
+                                    ->whereDate("created_at",date('Y-m-d',$weather_forcast["timestamp"]))->first();
 
         if(!$w_forcast){
             $w_forcast = new WeatherForcast;
