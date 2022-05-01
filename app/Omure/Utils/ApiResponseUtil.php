@@ -7,8 +7,11 @@ class ApiResponseUtil
 	public static function extract($response, $date)
 	{
 	    if(count($response->list) > 0 ){
+           
             $collection = [];
+            
             foreach($response->list as $data){
+
                 array_push($collection, [
                                         "city_id" => $data->id,  
                                         "location" => $data->name, 

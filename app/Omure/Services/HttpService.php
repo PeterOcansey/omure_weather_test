@@ -33,20 +33,4 @@ class HttpService
 
         return null;
     }
-
-
-    /**
-     * 
-     * @param String $location_name
-     * 
-     */
-    public static function fetchOpenWeatherGeoData(String $location_name)
-    {
-        $response = Http::acceptJson()->get(env("OPEN_GEO_API_URL", ""), [
-            'q' => $location_name,
-            'appId' => env("OPEN_WEATHER_API_KEY", "")
-        ]);
-
-        return json_decode($response->getBody()->getContents(), true);
-    }
 }

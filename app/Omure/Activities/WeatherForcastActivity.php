@@ -27,6 +27,17 @@ class WeatherForcastActivity
         $this->apiResponse = $apiResponse;
     }
 
+    /**
+     * List Weather Forcasts
+     * 
+     * Query DB for weather forcasts based on filters
+     * Fetch from open weather api on empty results
+     * 
+     * @params Array $filters
+     * 
+     * @return json response
+     * 
+     */
     public function listWeatherForcasts($filters)
     {
         //Ensure a date is pass or set a new date
@@ -55,6 +66,17 @@ class WeatherForcastActivity
         return $this->apiResponse->success("Weather forcast retrieved successfully", ["data" => $forcasts]);
     }
 
+
+    /**
+     * Fetch Weather Forcasts
+     * 
+     * Fetch from open weather api on empty results
+     * Dispatch NewWeatherForcast event with results
+     * 
+     * @return void
+     * 
+     */
+
     public function fetchWeatherForcasts()
     {
         $date = date(Constants::DATE_FORMAT_SHORT);
@@ -68,6 +90,17 @@ class WeatherForcastActivity
         }
     }
 
+
+    /**
+     * New Weather Forcasts
+     * 
+     * Add or Update new weather forcasts
+     * 
+     * @params Array $weather_forcasts
+     * 
+     * @return void
+     * 
+     */
     public function storeWeatherForcasts(Array $weather_forcasts){
         foreach($weather_forcasts as $weather_forcast){
             //Generate a new timestamp based on request date for saving
