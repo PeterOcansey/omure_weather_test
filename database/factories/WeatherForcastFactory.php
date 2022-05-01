@@ -20,7 +20,8 @@ class WeatherForcastFactory extends Factory
             'temp_max' => $this->faker->randomNumber(5, true),
             'pressure' => $this->faker->randomNumber(5, false),
             'humidity' => $this->faker->randomNumber(5, false),
-            'city_id' => $this->faker->randomNumber(5, true)
+            'city_id' => $this->faker->randomNumber(5, true),
+            'city_name' => $this->faker->name()
         ];
     }
 }
