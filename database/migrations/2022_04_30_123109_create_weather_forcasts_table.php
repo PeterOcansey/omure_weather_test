@@ -15,6 +15,8 @@ class CreateWeatherForcastsTable extends Migration
     {
         Schema::create('weather_forcasts', function (Blueprint $table) {
             $table->id();
+            $table->string('city_name');
+            $table->integer('city_id');
             $table->json("weather")->nullable();
             $table->double("temp");
             $table->double("feels_like")->default(0);
@@ -22,7 +24,6 @@ class CreateWeatherForcastsTable extends Migration
             $table->double("temp_max")->default(0);
             $table->integer("pressure")->default(0);
             $table->integer("humidity")->default(0);
-            $table->integer('city_id');
             $table->timestamps();
         });
     }

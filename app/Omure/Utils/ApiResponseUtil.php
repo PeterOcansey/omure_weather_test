@@ -14,7 +14,7 @@ class ApiResponseUtil
 
                 array_push($collection, [
                                         "city_id" => $data->id,  
-                                        "location" => $data->name, 
+                                        "city_name" => $data->name, 
                                         "weather" => $data->weather, 
                                         "temp" => $data->main->temp, 
                                         "feels_like" => $data->main->feels_like,

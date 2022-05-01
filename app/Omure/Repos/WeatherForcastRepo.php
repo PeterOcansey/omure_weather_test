@@ -17,6 +17,7 @@ class WeatherForcastRepo
     public function getForcasts($filters)
     {
         $predicate = WeatherForcast::query();
+
         foreach ($filters as $key => $filter) {
             if(in_array($key, Constants::FILTER_PARAM_IGNORE_LIST))
             {
@@ -37,13 +38,14 @@ class WeatherForcastRepo
         }
 
         $w_forcast->weather = json_encode($weather_forcast["weather"]);
-        $w_forcast->temp = json_encode($weather_forcast["temp"]);
-        $w_forcast->feels_like = json_encode($weather_forcast["feels_like"]);
-        $w_forcast->temp_min = json_encode($weather_forcast["temp_min"]);
-        $w_forcast->temp_max = json_encode($weather_forcast["temp_max"]);
-        $w_forcast->humidity = json_encode($weather_forcast["humidity"]);
-        $w_forcast->pressure = json_encode($weather_forcast["pressure"]);
-        $w_forcast->city_id = json_encode($weather_forcast["city_id"]);
+        $w_forcast->temp = $weather_forcast["temp"];
+        $w_forcast->feels_like = $weather_forcast["feels_like"];
+        $w_forcast->temp_min = $weather_forcast["temp_min"];
+        $w_forcast->temp_max = $weather_forcast["temp_max"];
+        $w_forcast->humidity = $weather_forcast["humidity"];
+        $w_forcast->pressure = $weather_forcast["pressure"];
+        $w_forcast->city_id = $weather_forcast["city_id"];
+        $w_forcast->city_name = $weather_forcast["city_name"];
 
         if($w_forcast->save())
             return $w_forcast;
