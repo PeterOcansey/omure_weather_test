@@ -9,9 +9,11 @@ use App\Models\WeatherForcast;
 use Illuminate\Support\Facades\Event;
 use App\Listeners\SaveWeatherForcast;
 use App\Events\NewWeatherForcast;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class WeatherForcastTest extends TestCase
 {
+    use DatabaseTransactions;
 
     /**
      * Test a weather forcast can be created
@@ -42,6 +44,8 @@ class WeatherForcastTest extends TestCase
     public function a_weather_forcast_can_be_fetched()
     {
         $this->withoutExceptionHandling();
+
+        $weather_forcast = WeatherForcast::factory()->create();
 
         $response = $this->get('/api/weatherforcasts');
 
